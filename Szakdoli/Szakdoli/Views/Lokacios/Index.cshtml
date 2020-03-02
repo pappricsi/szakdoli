@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Szakdoli.Models.Lokacio>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LokacioNev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Raktar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foglalt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LokacioNev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Raktar.RaktarId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Foglalt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LokacioId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LokacioId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LokacioId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
