@@ -7,26 +7,31 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Szakdoli.DAL;
 using Szakdoli.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
-namespace Szakdoli.Controllers
+namespace Szakdoli.Areas.Raktaros.Controllers
 {
+    [Area("Raktaros")]
     public class TermeksController : Controller
     {
         private readonly RaktarContext _context;
+        private UserManager<Alkalmazott> userMgr;
 
-        public TermeksController(RaktarContext context)
+        public TermeksController(RaktarContext context, UserManager<Alkalmazott> userManager)
         {
             _context = context;
+            userMgr = userManager;
         }
 
-        // GET: Termeks
+        // GET: Raktaros/Termeks
         public async Task<IActionResult> Index()
         {
             var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus);
             return View(await raktarContext.ToListAsync());
         }
 
-        // GET: Termeks/Details/5
+        // GET: Raktaros/Termeks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,59 +51,33 @@ namespace Szakdoli.Controllers
             return View(termek);
         }
 
-        // GET: Termeks/Create
+        // GET: Raktaros/Termeks/Create
         public IActionResult Create()
         {
             ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId");
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev");
+            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID");
             return View();
         }
 
-        // POST: Termeks/Create
+        // POST: Raktaros/Termeks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TermekID,Suly,LokacioId,TermekTipusId,Betarazva")] Termek termek)
+        public async Task<IActionResult> Create([Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
-            termek.Betarazva = DateTime.Now;
             if (ModelState.IsValid)
             {
                 _context.Add(termek);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LokacioId"] = new SelectList(_context.Lokaciok.Where(l=>l.Foglalt==false), "LokacioId", "LokacioId", termek.LokacioId);
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev", termek.TermekTipusId);
-            var lokacio = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == termek.LokacioId);
-
-            if(lokacio != null)
-            {
-                lokacio.Foglalt = true;
-                _context.Update(lokacio);
-                _context.SaveChanges();
-            }
-
-            var Curruser = _context.Alkalmazottak.FirstOrDefault(a => a.UserName == User.Identity.Name);
-            var tip = _context.TermekTipusok.FirstOrDefault(t => t.TipusNev == termek.TermekTipusId);
-            Func<Keszlet, bool> expression = g => g.RaktarId == Curruser.Raktar.RaktarId && g.TermekTipus == tip;
-            var keszlet = _context.Keszlet.FirstOrDefault(expression);
-
-            
-            if (keszlet != null)
-            {
-                int db = keszlet.Mennyiseg;
-                db++;
-                keszlet.Mennyiseg = db;
-                _context.Update(keszlet);
-                _context.SaveChanges();
-            }
-
-
+            ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId", termek.LokacioId);
+            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", termek.TermekTipusId);
             return View(termek);
         }
 
-        // GET: Termeks/Edit/5
+        // GET: Raktaros/Termeks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -112,16 +91,16 @@ namespace Szakdoli.Controllers
                 return NotFound();
             }
             ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId", termek.LokacioId);
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev", termek.TermekTipusId);
+            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", termek.TermekTipusId);
             return View(termek);
         }
 
-        // POST: Termeks/Edit/5
+        // POST: Raktaros/Termeks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TermekID,Suly,LokacioId,TermekTipusId,Betarazva")] Termek termek)
+        public async Task<IActionResult> Edit(int id, [Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
             if (id != termek.TermekID)
             {
@@ -149,11 +128,11 @@ namespace Szakdoli.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId", termek.LokacioId);
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev", termek.TermekTipusId);
+            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", termek.TermekTipusId);
             return View(termek);
         }
 
-        // GET: Termeks/Delete/5
+        // GET: Raktaros/Termeks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,7 +152,7 @@ namespace Szakdoli.Controllers
             return View(termek);
         }
 
-        // POST: Termeks/Delete/5
+        // POST: Raktaros/Termeks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -190,12 +169,39 @@ namespace Szakdoli.Controllers
         }
 
 
-        public async Task<IActionResult> Kitar(string TermekTipus,int mennyiseg)
+        public IActionResult Betar()
         {
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev", TermekTipus);
+            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusNev", "TipusNev");
+            ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false), "LokacioNev", "LokaciId");
             return View();
         }
 
-       
+
+        [HttpPost]
+        public async Task<IActionResult> Betar(Termek model)
+        {
+            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
+            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusNev", "TpusNev", model.Tipus.TipusNev);
+            ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID==alkalmazott.RaktarID), "LokacioNev", "LokaciId",model.LokacioId);
+            var tipus = _context.TermekTipusok.FirstOrDefault(t => t.TipusNev == model.Tipus.TipusNev);
+            var lokacio = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == model.LokacioId);
+            Termek uj = new Termek { LokacioId = lokacio.LokacioId, Betarazva = DateTime.Now, TermekTipusId = tipus.TipusID };
+            if (ModelState.IsValid)
+            {
+                _context.Add(uj);
+               
+
+                var keszlet = _context.Keszlet.FirstOrDefault(k => k.RaktarId == alkalmazott.RaktarID && k.TermekTipusId == tipus.TipusID);
+                int db = keszlet.Mennyiseg;
+                db++;
+                _context.Update(keszlet);
+
+                lokacio.Foglalt = false;
+                _context.Update(lokacio);
+
+                await _context.SaveChangesAsync();
+            }
+            return View();
+        }
     }
 }

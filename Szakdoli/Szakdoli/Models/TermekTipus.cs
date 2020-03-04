@@ -9,8 +9,9 @@ namespace Szakdoli.Models
     public class TermekTipus
     {
         [Key]
+        public int TipusID { get; set; }
         public string TipusNev { get; set; }
-        public int Mennyiseg { get; set; }
+        public int Suly { get; set; }
         public virtual List<Termek> Termekek { get; set; }
     }
 }

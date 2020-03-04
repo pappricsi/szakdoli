@@ -28,4 +28,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Raktaros\Data\" />
+    <Folder Include="Areas\Raktaros\Models\" />
+  </ItemGroup>
+
 </Project>

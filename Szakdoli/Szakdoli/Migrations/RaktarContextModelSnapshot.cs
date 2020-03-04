@@ -241,13 +241,16 @@ namespace Szakdoli.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TermekTipusId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TermekTipusTipusID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RaktarId");
 
-                    b.HasIndex("TermekTipusId");
+                    b.HasIndex("TermekTipusTipusID");
 
                     b.ToTable("Keszlet");
                 });
@@ -332,11 +335,8 @@ namespace Szakdoli.Migrations
                     b.Property<int>("LokacioId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Suly")
+                    b.Property<int>("TermekTipusId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TermekTipusId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("TermekID");
 
@@ -350,13 +350,18 @@ namespace Szakdoli.Migrations
 
             modelBuilder.Entity("Szakdoli.Models.TermekTipus", b =>
                 {
-                    b.Property<string>("TipusNev")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TipusID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Mennyiseg")
+                    b.Property<int>("Suly")
                         .HasColumnType("int");
 
-                    b.HasKey("TipusNev");
+                    b.Property<string>("TipusNev")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TipusID");
 
                     b.ToTable("TermekTipusok");
                 });
@@ -431,7 +436,7 @@ namespace Szakdoli.Migrations
 
                     b.HasOne("Szakdoli.Models.TermekTipus", "TermekTipus")
                         .WithMany()
-                        .HasForeignKey("TermekTipusId");
+                        .HasForeignKey("TermekTipusTipusID");
                 });
 
             modelBuilder.Entity("Szakdoli.Models.Log", b =>
@@ -460,7 +465,9 @@ namespace Szakdoli.Migrations
 
                     b.HasOne("Szakdoli.Models.TermekTipus", "Tipus")
                         .WithMany("Termekek")
-                        .HasForeignKey("TermekTipusId");
+                        .HasForeignKey("TermekTipusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Szakdoli.DAL;
 using Szakdoli.Models;
 
-namespace Szakdoli.Controllers
+namespace Szakdoli.Areas.Raktaros.Controllers
 {
+    [Area("Raktaros")]
     public class TermekTipusController : Controller
     {
         private readonly RaktarContext _context;
@@ -19,14 +20,14 @@ namespace Szakdoli.Controllers
             _context = context;
         }
 
-        // GET: TermekTipus
+        // GET: Raktaros/TermekTipus
         public async Task<IActionResult> Index()
         {
             return View(await _context.TermekTipusok.ToListAsync());
         }
 
-        // GET: TermekTipus/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Raktaros/TermekTipus/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -34,7 +35,7 @@ namespace Szakdoli.Controllers
             }
 
             var termekTipus = await _context.TermekTipusok
-                .FirstOrDefaultAsync(m => m.TipusNev == id);
+                .FirstOrDefaultAsync(m => m.TipusID == id);
             if (termekTipus == null)
             {
                 return NotFound();
@@ -43,18 +44,18 @@ namespace Szakdoli.Controllers
             return View(termekTipus);
         }
 
-        // GET: TermekTipus/Create
+        // GET: Raktaros/TermekTipus/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TermekTipus/Create
+        // POST: Raktaros/TermekTipus/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TipusNev,Mennyiseg")] TermekTipus termekTipus)
+        public async Task<IActionResult> Create([Bind("TipusID,TipusNev,Suly")] TermekTipus termekTipus)
         {
             if (ModelState.IsValid)
             {
@@ -65,8 +66,8 @@ namespace Szakdoli.Controllers
             return View(termekTipus);
         }
 
-        // GET: TermekTipus/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: Raktaros/TermekTipus/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -81,14 +82,14 @@ namespace Szakdoli.Controllers
             return View(termekTipus);
         }
 
-        // POST: TermekTipus/Edit/5
+        // POST: Raktaros/TermekTipus/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("TipusNev,Mennyiseg")] TermekTipus termekTipus)
+        public async Task<IActionResult> Edit(int id, [Bind("TipusID,TipusNev,Suly")] TermekTipus termekTipus)
         {
-            if (id != termekTipus.TipusNev)
+            if (id != termekTipus.TipusID)
             {
                 return NotFound();
             }
@@ -102,7 +103,7 @@ namespace Szakdoli.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TermekTipusExists(termekTipus.TipusNev))
+                    if (!TermekTipusExists(termekTipus.TipusID))
                     {
                         return NotFound();
                     }
@@ -116,8 +117,8 @@ namespace Szakdoli.Controllers
             return View(termekTipus);
         }
 
-        // GET: TermekTipus/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: Raktaros/TermekTipus/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -125,7 +126,7 @@ namespace Szakdoli.Controllers
             }
 
             var termekTipus = await _context.TermekTipusok
-                .FirstOrDefaultAsync(m => m.TipusNev == id);
+                .FirstOrDefaultAsync(m => m.TipusID == id);
             if (termekTipus == null)
             {
                 return NotFound();
@@ -134,10 +135,10 @@ namespace Szakdoli.Controllers
             return View(termekTipus);
         }
 
-        // POST: TermekTipus/Delete/5
+        // POST: Raktaros/TermekTipus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var termekTipus = await _context.TermekTipusok.FindAsync(id);
             _context.TermekTipusok.Remove(termekTipus);
@@ -145,11 +146,13 @@ namespace Szakdoli.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TermekTipusExists(string id)
+        private bool TermekTipusExists(int id)
         {
-            return _context.TermekTipusok.Any(e => e.TipusNev == id);
+            return _context.TermekTipusok.Any(e => e.TipusID == id);
         }
 
        
+
+
     }
 }

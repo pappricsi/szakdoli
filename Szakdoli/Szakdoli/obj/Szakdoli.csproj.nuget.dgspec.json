@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdolgozat\\Szakdoli\\Szakdoli\\Szakdoli.csproj": {}
+    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\Szakdoli.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdolgozat\\Szakdoli\\Szakdoli\\Szakdoli.csproj": {
+    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\Szakdoli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdolgozat\\Szakdoli\\Szakdoli\\Szakdoli.csproj",
+        "projectUniqueName": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\Szakdoli.csproj",
         "projectName": "Szakdoli",
-        "projectPath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdolgozat\\Szakdoli\\Szakdoli\\Szakdoli.csproj",
+        "projectPath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\Szakdoli.csproj",
         "packagesPath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdolgozat\\Szakdoli\\Szakdoli\\obj\\",
+        "outputPath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
