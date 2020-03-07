@@ -26,32 +26,42 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Termeks" asp-action="Index">Termékek</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Raktaros" asp-controller="TermekTipus" asp-action="Index">Termékek</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TermekTipus" asp-action="Index">Termék Típusok</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Raktar" asp-action="Index">Telephelyek</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Termeks" asp-action="Betar">Készlet betárolás</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Lokacios" asp-action="Index">Lokaciok</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Termeks" asp-action="Kitar">Készlet kitárolás</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="Index">Alkalmazottak</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="CreateRole">Beosztasok</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="CreateUser">Uj Alkalmazott</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Lokacios" asp-action="Index">Lokáciok</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Log" asp-action="Index">Log</a>
                                 </li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("RaktarVezeto"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="CreateUser">Uj Alkalmazott</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="Index">Alkalmazottak</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Raktars" asp-action="Index">Telephelyek</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Alkalmazott" asp-action="CreateRole">Beosztasok</a>
+                                    </li>
+                                }
+
+
+
                             </ul>
                             
                         </div>

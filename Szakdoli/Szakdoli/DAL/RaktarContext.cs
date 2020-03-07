@@ -32,6 +32,7 @@ namespace Szakdoli.DAL
         .HasMany(c => c.Alkalmazottak)
         .WithOne(e => e.Raktar);
 
+            modelBuilder.Entity<InputModel>().HasNoKey();
             
             base.OnModelCreating(modelBuilder);
 
@@ -39,5 +40,8 @@ namespace Szakdoli.DAL
 
 
         public DbSet<Szakdoli.Models.Role> Role { get; set; }
+
+
+        public DbSet<Szakdoli.Models.InputModel> InputModel { get; set; }
     }
 }

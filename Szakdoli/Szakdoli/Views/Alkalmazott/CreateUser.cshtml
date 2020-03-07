@@ -1,4 +1,5 @@
 ﻿@model Szakdoli.Models.InputModel
+
 @{
     ViewData["Title"] = "CreateUser";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,6 +7,8 @@
 
 <h1>CreateUser</h1>
 
+<h4>InputModel</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="CreateUser">
@@ -33,13 +36,15 @@
             <div class="form-group">
                 <label asp-for="Raktar" class="control-label"></label>
                 <select asp-for="Raktar" class="form-control" asp-items="ViewBag.RaktarID"></select>
+                <span asp-validation-for="Raktar" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
                 <select asp-for="Role" class="form-control" asp-items="ViewBag.Role"></select>
+                <span asp-validation-for="Role" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="CreateUser" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -49,6 +54,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -227,6 +227,32 @@ namespace Szakdoli.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Szakdoli.Models.InputModel", b =>
+                {
+                    b.Property<string>("ConfirmPassword")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Raktar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeljesNev")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("InputModel");
+                });
+
             modelBuilder.Entity("Szakdoli.Models.Keszlet", b =>
                 {
                     b.Property<int>("Id")
@@ -240,17 +266,14 @@ namespace Szakdoli.Migrations
                     b.Property<int>("RaktarId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TermekTipusId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TermekTipusTipusID")
+                    b.Property<int>("TermekTipusId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RaktarId");
 
-                    b.HasIndex("TermekTipusTipusID");
+                    b.HasIndex("TermekTipusId");
 
                     b.ToTable("Keszlet");
                 });
@@ -436,7 +459,9 @@ namespace Szakdoli.Migrations
 
                     b.HasOne("Szakdoli.Models.TermekTipus", "TermekTipus")
                         .WithMany()
-                        .HasForeignKey("TermekTipusTipusID");
+                        .HasForeignKey("TermekTipusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Szakdoli.Models.Log", b =>

@@ -1,0 +1,37 @@
+﻿@model Szakdoli.Models.Termek
+
+@{
+    ViewData["Title"] = "Betar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Betar</h1>
+
+<h4>Termék Betárolás</h4>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Betar">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="LokacioId" class="control-label"></label>
+                    <select asp-for="LokacioId" class="form-control" asp-items="ViewBag.Lokaciok"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TermekTipusId" class="control-label"></label>
+                    <select asp-for="TermekTipusId" class="form-control" asp-items="ViewBag.TermekTipusok"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Betárol" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+
+

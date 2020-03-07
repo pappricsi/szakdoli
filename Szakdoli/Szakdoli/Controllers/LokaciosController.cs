@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,16 +15,19 @@ namespace Szakdoli.Controllers
     public class LokaciosController : Controller
     {
         private readonly RaktarContext _context;
+        private UserManager<Alkalmazott> userMgr;
 
-        public LokaciosController(RaktarContext context)
+        public LokaciosController(RaktarContext context, UserManager<Alkalmazott> userManager)
         {
             _context = context;
+            userMgr = userManager;
         }
 
         // GET: Lokacios
         public async Task<IActionResult> Index()
         {
-            var raktarContext = _context.Lokaciok.Include(l => l.Raktar);
+            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
+            var raktarContext = _context.Lokaciok.Include(l => l.Raktar).Where(x => x.RaktarID==alkalmazott.RaktarID);
             return View(await raktarContext.ToListAsync());
         }
 
@@ -46,6 +51,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "RaktarId");
@@ -71,6 +77,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -124,6 +131,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
