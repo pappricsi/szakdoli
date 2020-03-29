@@ -5,7 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Alkalmazottak</h1>
+
+
+<form asp-controller="Alkalmazott" asp-action="Index">
+    <p>
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Szűrés" />
+    </p>
+</form>
 
 <table class="table">
     <thead>

@@ -8,6 +8,13 @@
 <h1>Index</h1>
 
 
+<form asp-controller="Termeks" asp-action="Index">
+    <p>
+        Title: <input type="text" name="Search">
+        <input type="submit" value="Szűrés" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -16,6 +23,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tipus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TermekID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Betarazva)
@@ -31,6 +41,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Tipus.TipusID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TermekID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Betarazva)

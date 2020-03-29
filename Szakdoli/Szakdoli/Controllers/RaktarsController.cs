@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Szakdoli.Models;
 
 namespace Szakdoli.Controllers
 {
+    [Authorize]
     public class RaktarsController : Controller
     {
         private readonly RaktarContext _context;
@@ -44,6 +46,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Raktars/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +57,7 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("RaktarId,Nev,Cim,TelefonSZam")] Raktar raktar)
         {
             if (ModelState.IsValid)
@@ -66,6 +70,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Raktars/Edit/5
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +91,7 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> Edit(int id, [Bind("RaktarId,Nev,Cim,TelefonSZam")] Raktar raktar)
         {
             if (id != raktar.RaktarId)
@@ -117,6 +123,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Raktars/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +144,7 @@ namespace Szakdoli.Controllers
         // POST: Raktars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var raktar = await _context.Raktarak.FindAsync(id);

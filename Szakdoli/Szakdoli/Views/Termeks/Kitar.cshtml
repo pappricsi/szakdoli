@@ -11,12 +11,6 @@
 <h4>Termek</h4>
 <hr />
 
-@if (ViewBag.TermekTipus == null)
-{
-    <label class="alert">Nincs termék a raktárban</label>
-}
-else
-{
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Kitar">
@@ -37,7 +31,6 @@ else
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-}
 
 
 

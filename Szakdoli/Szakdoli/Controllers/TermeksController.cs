@@ -9,10 +9,11 @@ using Szakdoli.DAL;
 using Szakdoli.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Szakdoli.Areas.Raktaros.Controllers
+namespace Szakdoli.Controllers
 {
-    
+    [Authorize]
     public class TermeksController : Controller
     {
         private readonly RaktarContext _context;
@@ -24,14 +25,26 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             userMgr = userManager;
         }
 
-        // GET: Raktaros/Termeks
-        public async Task<IActionResult> Index()
+        // GET: /Termeks
+        public async Task<IActionResult> Index(string search)
         {
             var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus);
+            
+            if (!String.IsNullOrEmpty(search))
+            {
+               var eredmeny = raktarContext.Where(s => s.TermekTipusId.ToString().Contains(search)
+                || s.LokacioId.ToString().Contains(search)
+                || s.Betarazva.ToString().Contains(search)
+                || s.TermekID.ToString().Contains(search)
+               );
+                return View(eredmeny.ToList());
+            }
+
             return View(await raktarContext.ToListAsync());
+            
         }
 
-        // GET: Raktaros/Termeks/Details/5
+        // GET: Termeks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -51,7 +64,8 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View(termek);
         }
 
-        // GET: Raktaros/Termeks/Create
+        // GET: Termeks/Create
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public IActionResult Create()
         {
             ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId");
@@ -59,11 +73,12 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View();
         }
 
-        // POST: Raktaros/Termeks/Create
+        // POST: Termeks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Create([Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
             if (ModelState.IsValid)
@@ -77,7 +92,8 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View(termek);
         }
 
-        // GET: Raktaros/Termeks/Edit/5
+        // GET: Termeks/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,11 +111,12 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View(termek);
         }
 
-        // POST: Raktaros/Termeks/Edit/5
+        // POST: Termeks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Edit(int id, [Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
             if (id != termek.TermekID)
@@ -111,6 +128,13 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             {
                 try
                 {
+                    var uj = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == termek.LokacioId);
+                    var ter = _context.Termekek.FirstOrDefault(t => t.TermekID == id);
+                    var regi = _context.Lokaciok.FirstOrDefault(t => t.LokacioId == ter.LokacioId);
+
+                    uj.Foglalt = true;
+                    regi.Foglalt = false;
+                    
                     _context.Update(termek);
                     await _context.SaveChangesAsync();
                 }
@@ -132,7 +156,7 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View(termek);
         }
 
-        // GET: Raktaros/Termeks/Delete/5
+        // GET: Termeks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,7 +176,7 @@ namespace Szakdoli.Areas.Raktaros.Controllers
             return View(termek);
         }
 
-        // POST: Raktaros/Termeks/Delete/5
+        // POST: Termeks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -172,7 +196,7 @@ namespace Szakdoli.Areas.Raktaros.Controllers
         public IActionResult Betar()
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID");
+            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev");
             ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID == alkalmazott.RaktarID), "LokacioId", "LokacioNev");
             return View();
         }
@@ -182,7 +206,7 @@ namespace Szakdoli.Areas.Raktaros.Controllers
         public async Task<IActionResult> Betar(Termek model)
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", model.TermekTipusId);
+            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev", model.TermekTipusId);
             ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID==alkalmazott.RaktarID), "LokacioId", "LokacioNev",model.LokacioId);
             Termek uj = new Termek { LokacioId = model.LokacioId, Betarazva = DateTime.Now, TermekTipusId = model.TermekTipusId, };
             if (ModelState.IsValid)
@@ -200,6 +224,9 @@ namespace Szakdoli.Areas.Raktaros.Controllers
                 lokacio.Foglalt = true;
                 _context.Update(lokacio);
 
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva" + uj.TermekID.ToString() + "azonosítóju termék" };
+                _context.Add(bejegyzes);
+
                 await _context.SaveChangesAsync();
             }
             return View(nameof(Betar));
@@ -208,38 +235,34 @@ namespace Szakdoli.Areas.Raktaros.Controllers
         public IActionResult Kitar()
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            List <Keszlet > ls= _context.Keszlet.Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID).ToList();
-            List<TermekTipus> lista = new List<TermekTipus>();
-            foreach (var item in ls)
-            {
-                var tt = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == item.TermekTipusId);
-                lista.Add(tt);
-            }
-            ViewData["TermekTipus"] = new SelectList(lista, "TipusNev", "TipusID");
+            IEnumerable<TermekTipus> ls = _context.Keszlet
+               .Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID)
+               .Select(k => k.TermekTipus)
+               .ToList();
+           
+            ViewData["TermekTipus"] = new SelectList(ls, "TipusID", "TipusNev");
             
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Kitar([Bind("TipusNev")]TermekTipus tipus)
+        public async Task<IActionResult> Kitar(Termek termek)
         {
             
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            List<Keszlet> ls = _context.Keszlet.Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID).ToList();
-            List<TermekTipus> lista = new List<TermekTipus>();
-            foreach (var item in ls)
-            {
-                var tt = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == item.TermekTipusId);
-                lista.Add(tt);
-            }
-            ViewData["TermekTipus"] = new SelectList(lista, "TipusNev", "TipusID",tipus.TipusID);
-            var tip = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == tipus.TipusID);
-            Termek termek = _context.Termekek.Where(t => t.TermekTipusId == tip.TipusID).OrderBy(x => x.Betarazva).First();
-            var lok = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == termek.LokacioId);
+            IEnumerable<TermekTipus> ls = await _context.Keszlet
+               .Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID)
+               .Select(k => k.TermekTipus)
+               .ToListAsync();
+
+            ViewData["TermekTipus"] = new SelectList(ls, "TipusID", "TipusNev",termek.TermekTipusId);
+            var tip = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == termek.TermekTipusId);
+            Termek kitar = _context.Termekek.Where(t => t.TermekTipusId == tip.TipusID).OrderBy(x => x.Betarazva).First();
+            var lok = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == kitar.LokacioId);
 
             if (ModelState.IsValid)
             {
-                _context.Termekek.Remove(termek);
+                _context.Termekek.Remove(kitar);
                
                 lok.Foglalt = false;
                 _context.Update(lok);
@@ -247,7 +270,11 @@ namespace Szakdoli.Areas.Raktaros.Controllers
                 var keszlet = _context.Keszlet.FirstOrDefault(k => k.RaktarId == alkalmazott.RaktarID && k.TermekTipusId == tip.TipusID);
                 int db = keszlet.Mennyiseg;
                 db--;
+                keszlet.Mennyiseg = db;
                 _context.Update(keszlet);
+
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Kitárazva" + kitar.TermekID.ToString() + "azonosítóju termék" };
+                _context.Add(bejegyzes);
 
                 await _context.SaveChangesAsync();
             }

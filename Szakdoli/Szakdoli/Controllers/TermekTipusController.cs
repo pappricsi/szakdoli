@@ -11,6 +11,7 @@ using Szakdoli.Models;
 
 namespace Szakdoli.Controllers
 {
+    [Authorize]
     public class TermekTipusController : Controller
     {
         private readonly RaktarContext _context;
@@ -56,6 +57,7 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Create([Bind("TipusID,TipusNev,Suly")] TermekTipus termekTipus)
         {
             List<Raktar> ls = _context.Raktarak.ToList();
@@ -78,6 +80,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: TermekTipus/Edit/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -98,6 +101,7 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Edit(int id, [Bind("TipusID,TipusNev,Suly")] TermekTipus termekTipus)
         {
             if (id != termekTipus.TipusID)
@@ -129,6 +133,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: TermekTipus/Delete/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,7 +143,8 @@ namespace Szakdoli.Controllers
 
             var termekTipus = await _context.TermekTipusok
                 .FirstOrDefaultAsync(m => m.TipusID == id);
-            if (termekTipus == null)
+            var keszlet = _context.Keszlet.Any(c => c.TermekTipusId == id && c.Mennyiseg != 0);
+            if (termekTipus == null && !keszlet)
             {
                 return NotFound();
             }
@@ -149,10 +155,16 @@ namespace Szakdoli.Controllers
         // POST: TermekTipus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var termekTipus = await _context.TermekTipusok.FindAsync(id);
             _context.TermekTipusok.Remove(termekTipus);
+            var keszlet = _context.Keszlet.Where(c => c.TermekTipusId == id);
+            foreach (var item in keszlet)
+            {
+                _context.Remove(item);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

@@ -29,19 +29,15 @@ namespace Szakdoli.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Raktar>()
-        .HasMany(c => c.Alkalmazottak)
-        .WithOne(e => e.Raktar);
+            .HasMany(c => c.Alkalmazottak)
+            .WithOne(e => e.Raktar).OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<InputModel>().HasNoKey();
+            
             
             base.OnModelCreating(modelBuilder);
 
         }
 
 
-        public DbSet<Szakdoli.Models.Role> Role { get; set; }
-
-
-        public DbSet<Szakdoli.Models.InputModel> InputModel { get; set; }
     }
 }

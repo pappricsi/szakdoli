@@ -12,6 +12,7 @@ using Szakdoli.Models;
 
 namespace Szakdoli.Controllers
 {
+    [Authorize]
     public class LokaciosController : Controller
     {
         private readonly RaktarContext _context;
@@ -51,7 +52,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Raktar Vezeto")]
         public IActionResult Create()
         {
             ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "RaktarId");
@@ -77,7 +78,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,6 +100,7 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> Edit(int id, [Bind("LokacioId,LokacioNev,RaktarID,Foglalt")] Lokacio lokacio)
         {
             if (id != lokacio.LokacioId)
@@ -131,7 +133,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Lokacios/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Raktar Vezeto")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,6 +155,7 @@ namespace Szakdoli.Controllers
         // POST: Lokacios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var lokacio = await _context.Lokaciok.FindAsync(id);

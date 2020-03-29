@@ -18,6 +18,48 @@ namespace Szakdoli
 {
     public class Startup
     {
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<Alkalmazott>>();
+            string[] roleNames = { "Admin", "Raktar vezeto", "Raktaros" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                
+                if (!roleExist)
+                {
+                    
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            
+            var _user = await UserManager.FindByEmailAsync("admin@admin.hu");
+
+            
+            if (_user == null)
+            {
+                
+                var poweruser = new Alkalmazott
+                {
+                    UserName = "Admin",
+                    Email = "admin@admin.hu",
+                };
+                string adminPassword = "Qwe_123";
+
+                var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
+                if (createPowerUser.Succeeded)
+                {
+                    
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+
+                }
+            }
+        }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +71,8 @@ namespace Szakdoli
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            
 
             services.AddDbContext<RaktarContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -73,7 +117,7 @@ namespace Szakdoli
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            
+            CreateRoles(services);
         }
        
     }

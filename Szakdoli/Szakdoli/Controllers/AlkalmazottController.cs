@@ -35,11 +35,21 @@ namespace Szakdoli.Controllers
             _context = context;
         }
         // GET: Alkalmazott
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
             Alkalmazott alkalmazott = new Alkalmazott();
-           var users = _context.Alkalmazottak.ToList();
-           
+            var users = _context.Alkalmazottak.ToList();
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                var eredmeny = users.Where(s => s.RaktarID.ToString().Contains(search)
+                 || s.TeljesNev.ToString().Contains(search)
+                 || s.UserName.ToString().Contains(search)
+                 || s.Id.ToString().Contains(search)
+                );
+                return View(eredmeny.ToList());
+            }
+
             return View(users);
         }
 
@@ -50,6 +60,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Alkalmazott/Create
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public ActionResult Create()
         {
             return View();
@@ -58,6 +69,7 @@ namespace Szakdoli.Controllers
         // POST: Alkalmazott/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -118,6 +130,7 @@ namespace Szakdoli.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public IActionResult CreateUser()
         {
             
@@ -127,6 +140,7 @@ namespace Szakdoli.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> CreateUser(InputModel input)
         {
            
@@ -136,7 +150,7 @@ namespace Szakdoli.Controllers
             {
                 var rakt = _context.Raktarak.FirstOrDefault(r => r.Nev == input.Raktar);
                 //var raktar = _context.Raktarak.FirstOrDefault(r => r.Nev == input.Raktar.Nev);
-                var alkalmazott = new Alkalmazott { Email = input.Email, RaktarID=rakt.RaktarId,UserName=input.Email.ToUpper(),TeljesNev=input.TeljesNev };
+                var alkalmazott = new Alkalmazott { Email = input.Email, RaktarID=rakt.RaktarId,UserName=input.Email.ToUpper(),TeljesNev=input.TeljesNev,EmailConfirmed=true };
                 IdentityResult result = await userMgr.CreateAsync(alkalmazott,input.Password);
                 IdentityResult result2 = await userMgr.AddToRoleAsync(alkalmazott, input.Role);
                 if (result.Succeeded && result2.Succeeded)
@@ -147,6 +161,7 @@ namespace Szakdoli.Controllers
             return View("Index");
         }
 
+        [Authorize(Roles = "Admin,Raktar Vezeto")]
         public IActionResult CreateRole()
         {
             return View();
@@ -156,6 +171,7 @@ namespace Szakdoli.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Raktar Vezeto")]
         public async Task<IActionResult> CreateRole([Required]string name)
         {
             if (ModelState.IsValid)

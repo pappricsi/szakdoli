@@ -6,9 +6,8 @@ using Szakdoli.Models;
 
 namespace Szakdoli.DAL
 {
-    public static class DbInitializer
+    public class DbInitializer
     {
-
         public static void Initialize(RaktarContext context)
         {
             context.Database.EnsureCreated();
@@ -19,9 +18,9 @@ namespace Szakdoli.DAL
                 return;   // DB has been seeded
             }
 
-          
 
-          
+
+
 
             //var raktarak = new Raktar[]
             //{
@@ -36,39 +35,34 @@ namespace Szakdoli.DAL
             //context.SaveChanges();
 
 
-           // var alkalmazottak = new Alkalmazott[]
-           //{
-           // new Alkalmazott{TeljesNev="Proba Pista",},
-           // new Alkalmazott{TeljesNev="Proba Jani",},
-           // new Alkalmazott{TeljesNev="Proba Béla",},
-           //};
-           // foreach (Alkalmazott a in alkalmazottak)
-           // {
-           //     context.Alkalmazottak.Add(a);
-           // }
-           // context.SaveChanges();
+            // var alkalmazottak = new Alkalmazott[]
+            //{
+            // new Alkalmazott{TeljesNev="Proba Pista",},
+            // new Alkalmazott{TeljesNev="Proba Jani",},
+            // new Alkalmazott{TeljesNev="Proba Béla",},
+            //};
+            // foreach (Alkalmazott a in alkalmazottak)
+            // {
+            //     context.Alkalmazottak.Add(a);
+            // }
+            // context.SaveChanges();
 
 
-        //    var lokaciok = new Lokacio[]
-        //   {
-        //    new Lokacio{LokacioNev="egyes", },
-        //    new Lokacio{LokacioNev="kettes",},
-        //    new Lokacio{LokacioNev="harmas",},
-        //    new Lokacio{LokacioNev="negyes",},
-        //    new Lokacio{LokacioNev="otos",},
-        //    new Lokacio{LokacioNev="hatos",},
-        //    new Lokacio{LokacioNev="hetes",},
-        //   };
-        //    foreach (Lokacio lo in lokaciok)
-        //    {
-        //        context.Lokaciok.Add(lo);
-        //    }
-        //    context.SaveChanges();
+            //    var lokaciok = new Lokacio[]
+            //   {
+            //    new Lokacio{LokacioNev="egyes", },
+            //    new Lokacio{LokacioNev="kettes",},
+            //    new Lokacio{LokacioNev="harmas",},
+            //    new Lokacio{LokacioNev="negyes",},
+            //    new Lokacio{LokacioNev="otos",},
+            //    new Lokacio{LokacioNev="hatos",},
+            //    new Lokacio{LokacioNev="hetes",},
+            //   };
+            //    foreach (Lokacio lo in lokaciok)
+            //    {
+            //        context.Lokaciok.Add(lo);
+            //    }
+            //    context.SaveChanges();
         }
-
-
     }
-
-
-    
 }

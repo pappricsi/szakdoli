@@ -14,7 +14,7 @@ namespace Szakdoli.Models
         public string Cim { get; set; }
         public string TelefonSZam { get; set; }
         //public string Vezeto { get; set; }
-        public virtual List<Lokacio> Lokaciok { get; set; }
+        public  List<Lokacio> Lokaciok { get; set; }
         public  ICollection<Alkalmazott> Alkalmazottak { get; set; }
 
     }
