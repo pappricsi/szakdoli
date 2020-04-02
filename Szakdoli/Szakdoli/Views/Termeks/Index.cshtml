@@ -49,9 +49,12 @@
                 @Html.DisplayFor(modelItem => item.Betarazva)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TermekID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TermekID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TermekID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.TermekID">Áttárol</a> |
+                <a asp-action="Details" asp-route-id="@item.TermekID">Részletek</a> |
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.TermekID">Töröl</a>
+                }
             </td>
         </tr>
 }

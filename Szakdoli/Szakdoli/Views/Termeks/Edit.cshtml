@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Termék áthelyezése</h1>
 
 <h4>Termek</h4>
 <hr />
@@ -18,17 +18,6 @@
                 <label asp-for="LokacioId" class="control-label"></label>
                 <select asp-for="LokacioId" class="form-control" asp-items="ViewBag.LokacioId"></select>
                 <span asp-validation-for="LokacioId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TermekTipusId" class="control-label"></label>
-                <select asp-for="TermekTipusId" class="form-control" asp-items="ViewBag.TermekTipusId"></select>
-                <span asp-validation-for="TermekTipusId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Betarazva" class="control-label"></label>
-                <input asp-for="Betarazva" class="form-control" />
-                <span asp-validation-for="Betarazva" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

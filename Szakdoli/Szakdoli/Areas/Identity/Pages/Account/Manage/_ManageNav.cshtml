@@ -1,4 +1,4 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@inject SignInManager<Szakdoli.Models.Alkalmazott> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

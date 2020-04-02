@@ -22,9 +22,18 @@ namespace Szakdoli.Controllers
         }
 
         // GET: TermekTipus
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            return View(await _context.TermekTipusok.ToListAsync());
+            var raktarContext = await _context.TermekTipusok.ToListAsync();
+            if (!String.IsNullOrEmpty(search))
+            {
+                var eredmeny = raktarContext.Where(s => s.Suly.ToString().Contains(search)
+                 || s.TipusNev.ToString().Contains(search)
+                 || s.TipusNev.ToString().Contains(search)
+                );
+                return View(eredmeny.ToList());
+            }
+            return View(raktarContext.ToList());
         }
 
         // GET: TermekTipus/Details/5

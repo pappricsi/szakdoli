@@ -28,7 +28,10 @@ namespace Szakdoli.Controllers
         // GET: /Termeks
         public async Task<IActionResult> Index(string search)
         {
-            var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus);
+            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
+            List<int> lok = _context.Lokaciok.Where(l => l.RaktarID == alkalmazott.RaktarID).Select(x =>x.LokacioId).ToList();
+            var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus).Where(t => t.Lokacio.RaktarID==alkalmazott.RaktarID);
+            
             
             if (!String.IsNullOrEmpty(search))
             {
@@ -39,7 +42,7 @@ namespace Szakdoli.Controllers
                );
                 return View(eredmeny.ToList());
             }
-
+            
             return View(await raktarContext.ToListAsync());
             
         }
@@ -116,7 +119,6 @@ namespace Szakdoli.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Edit(int id, [Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
             if (id != termek.TermekID)
