@@ -10,7 +10,7 @@
 
 <form asp-controller="Termeks" asp-action="Index">
     <p>
-        Title: <input type="text" name="Search">
+        Keresés: <input type="text" name="Search">
         <input type="submit" value="Szűrés" />
     </p>
 </form>
@@ -37,10 +37,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Lokacio.LokacioId)
+                @Html.DisplayFor(modelItem => item.Lokacio.LokacioNev)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tipus.TipusID)
+                @Html.DisplayFor(modelItem => item.Tipus.TipusNev)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TermekID)

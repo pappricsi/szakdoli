@@ -497,3 +497,4 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Details.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Edit.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Index.cshtml.g.cs
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Alkalmazott\Delete.cshtml.g.cs

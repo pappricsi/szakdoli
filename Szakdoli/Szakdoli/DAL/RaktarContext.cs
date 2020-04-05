@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Szakdoli.Models;
+using Szakdoli.ViewModels;
 
 namespace Szakdoli.DAL
 {
@@ -37,6 +38,9 @@ namespace Szakdoli.DAL
             base.OnModelCreating(modelBuilder);
 
         }
+
+
+        public DbSet<Szakdoli.ViewModels.DeleteModel> DeleteModel { get; set; }
 
 
     }

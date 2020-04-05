@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Szakdoli.DAL;
 using Szakdoli.Models;
-
+using Szakdoli.ViewModels;
 
 namespace Szakdoli.Controllers
 {
@@ -37,15 +37,14 @@ namespace Szakdoli.Controllers
         // GET: Alkalmazott
         public async Task<IActionResult> Index(string search)
         {
-            Alkalmazott alkalmazott = new Alkalmazott();
             var users = _context.Alkalmazottak.ToList();
 
             if (!String.IsNullOrEmpty(search))
             {
                 var eredmeny = users.Where(s => s.RaktarID.ToString().Contains(search)
-                 || s.TeljesNev.ToString().Contains(search)
-                 || s.UserName.ToString().Contains(search)
-                 || s.Id.ToString().Contains(search)
+                 || s.TeljesNev.Contains(search)
+                 || s.UserName.Contains(search)
+                 || s.Id.Contains(search)
                 );
                 return View(eredmeny.ToList());
             }
@@ -108,19 +107,33 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Alkalmazott/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alkalmazott = await _context.Alkalmazottak.FindAsync(id);
+            var role = userMgr.GetRolesAsync(alkalmazott);
+            DeleteModel model = new DeleteModel { Id = alkalmazott.Id, TeljesNev = alkalmazott.TeljesNev, Szerepkor = role.ToString() };
+            if (alkalmazott == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+            
         }
 
         // POST: Alkalmazott/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(string id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var alkalmazott = await _context.Alkalmazottak.FindAsync(id);
+                await userMgr.DeleteAsync(alkalmazott);
 
                 return RedirectToAction(nameof(Index));
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,13 +12,17 @@ namespace Szakdoli.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DisplayName("Azonosító")]
         public int TermekID { get; set; }
         [ForeignKey("Helye")]
         public int LokacioId { get; set; }
+        [DisplayName("Tárhely")]
         public virtual Lokacio Lokacio { get; set; }
         [ForeignKey("Tipus")]
         public int TermekTipusId { get; set; }
+        [DisplayName("Típus")]
         public virtual TermekTipus Tipus { get; set; }
+        [DisplayName("Betárolva")]
         public DateTime Betarazva { get; set; }
     }
 }
