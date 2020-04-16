@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace Szakdoli.Controllers
     public class KeszletController : Controller
     {
         private readonly RaktarContext _context;
+        private UserManager<Alkalmazott> userMgr;
 
         public KeszletController(RaktarContext context)
         {
@@ -22,7 +24,8 @@ namespace Szakdoli.Controllers
         // GET: Keszlet
         public async Task<IActionResult> Index()
         {
-            var raktarContext = _context.Keszlet.Include(k => k.Raktar).Include(k => k.TermekTipus);
+            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
+            var raktarContext = _context.Keszlet.Include(k => k.Raktar).Include(k => k.TermekTipus).Where(k => k.RaktarId == alkalmazott.RaktarID);
             return View(await raktarContext.ToListAsync());
         }
 

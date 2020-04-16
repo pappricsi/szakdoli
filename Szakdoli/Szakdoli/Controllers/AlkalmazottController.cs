@@ -116,7 +116,7 @@ namespace Szakdoli.Controllers
 
             var alkalmazott = await _context.Alkalmazottak.FindAsync(id);
             var role = userMgr.GetRolesAsync(alkalmazott);
-            DeleteModel model = new DeleteModel { Id = alkalmazott.Id, TeljesNev = alkalmazott.TeljesNev, Szerepkor = role.ToString() };
+            DeleteModel model = new DeleteModel { Id = alkalmazott.Id, TeljesNev = alkalmazott.TeljesNev, Szerepkor = role.Result[0] };
             if (alkalmazott == null)
             {
                 return NotFound();

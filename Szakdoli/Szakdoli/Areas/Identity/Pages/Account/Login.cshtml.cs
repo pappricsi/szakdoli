@@ -49,9 +49,10 @@ namespace Szakdoli.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Jelszó")]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "belépve maradok")]
             public bool RememberMe { get; set; }
         }
 

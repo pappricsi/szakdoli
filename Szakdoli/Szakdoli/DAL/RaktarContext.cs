@@ -39,9 +39,5 @@ namespace Szakdoli.DAL
 
         }
 
-
-        public DbSet<Szakdoli.ViewModels.DeleteModel> DeleteModel { get; set; }
-
-
     }
 }
