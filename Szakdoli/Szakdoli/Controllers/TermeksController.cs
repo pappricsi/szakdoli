@@ -29,9 +29,11 @@ namespace Szakdoli.Controllers
         public async Task<IActionResult> Index(string search)
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
-            List<int> lok = _context.Lokaciok.Where(l => l.RaktarID == alkalmazott.RaktarID).Select(x =>x.LokacioId).ToList();
-            var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus).Where(t => t.Lokacio.RaktarID==alkalmazott.RaktarID);
-            
+            var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus);
+            if (!User.IsInRole("Admin"))
+            {
+                raktarContext = raktarContext.Where(t => t.Lokacio.RaktarID == alkalmazott.RaktarID).Include(t => t.Lokacio).Include(t => t.Tipus);
+            }
             
             if (!String.IsNullOrEmpty(search))
             {
@@ -109,7 +111,8 @@ namespace Szakdoli.Controllers
             {
                 return NotFound();
             }
-            ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId", termek.LokacioId);
+            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
+            ViewData["LokacioId"] = new SelectList(_context.Lokaciok.Where(t => t.RaktarID==alkalmazott.RaktarID), "LokacioId", "LokacioId", termek.LokacioId);
             ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", termek.TermekTipusId);
             return View(termek);
         }

@@ -27,8 +27,13 @@ namespace Szakdoli.Controllers
         // GET: Lokacios
         public async Task<IActionResult> Index()
         {
-            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            var raktarContext = _context.Lokaciok.Include(l => l.Raktar).Where(x => x.RaktarID==alkalmazott.RaktarID);
+            
+            var raktarContext = _context.Lokaciok.Include(l => l.Raktar);
+            if (!User.IsInRole("Admin"))
+            {
+                Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
+                raktarContext = raktarContext.Where(x => x.RaktarID == alkalmazott.RaktarID).Include(l => l.Raktar);
+            }
             return View(await raktarContext.ToListAsync());
         }
 

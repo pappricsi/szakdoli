@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<Szakdoli.Models.TermekTipus>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Termék típusok";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Lista nézet</h1>
 
-@if (User.IsInRole("Admin") || User.IsInRole("Raktar Vezeto"))
+@if (User.IsInRole("Admin") || User.IsInRole("Raktar vezeto"))
 {
     <p>
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Create">Új hozzáadása</a>
     </p>
 }
 
@@ -37,9 +37,9 @@
                     @Html.DisplayFor(modelItem => item.Suly)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.TipusID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.TipusID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.TipusID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.TipusID">Szerkeszt</a> |
+                    <a asp-action="Details" asp-route-id="@item.TipusID">Részletek</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TipusID">Törlés</a>
                 </td>
             </tr>
         }
