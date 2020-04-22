@@ -111,10 +111,10 @@ namespace Szakdoli
             {
                 endpoints.MapControllerRoute(
                     name: "MyArea",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Keszlet}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Keszlet}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
             CreateRoles(services);

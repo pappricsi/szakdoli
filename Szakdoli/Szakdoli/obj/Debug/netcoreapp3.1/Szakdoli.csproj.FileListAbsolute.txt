@@ -401,8 +401,6 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.csprojAssemblyReference.cache
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\staticwebassets\Szakdoli.StaticWebAssets.Manifest.cache
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\staticwebassets\Szakdoli.StaticWebAssets.xml
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.RazorAssemblyInfo.cache
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.RazorAssemblyInfo.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.AssemblyInfoInputs.cache
@@ -492,9 +490,10 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Raktars\Details.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Raktars\Edit.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Raktars\Index.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Create.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Delete.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Details.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Edit.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Keszlet\Index.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Alkalmazott\Delete.cshtml.g.cs
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cache

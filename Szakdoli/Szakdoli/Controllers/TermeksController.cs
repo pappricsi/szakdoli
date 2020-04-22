@@ -162,6 +162,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Termeks/Delete/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -184,6 +185,7 @@ namespace Szakdoli.Controllers
         // POST: Termeks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var termek = await _context.Termekek.FindAsync(id);

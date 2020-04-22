@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,21 +12,29 @@ using Szakdoli.Models;
 
 namespace Szakdoli.Controllers
 {
+    [Authorize]
     public class KeszletController : Controller
     {
         private readonly RaktarContext _context;
         private UserManager<Alkalmazott> userMgr;
 
-        public KeszletController(RaktarContext context)
+        public KeszletController(RaktarContext context, UserManager<Alkalmazott> userManager)
         {
             _context = context;
+            userMgr = userManager;
         }
 
         // GET: Keszlet
         public async Task<IActionResult> Index()
         {
-            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
-            var raktarContext = _context.Keszlet.Include(k => k.Raktar).Include(k => k.TermekTipus).Where(k => k.RaktarId == alkalmazott.RaktarID);
+           
+            var raktarContext = _context.Keszlet.Include(k => k.Raktar).Include(k => k.TermekTipus);
+            if (!User.IsInRole("Admin"))
+            {
+                Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
+                raktarContext = raktarContext.Where(k => k.RaktarId == alkalmazott.RaktarID).Include(k => k.Raktar).Include(k => k.TermekTipus);
+            }
+
             return View(await raktarContext.ToListAsync());
         }
 
