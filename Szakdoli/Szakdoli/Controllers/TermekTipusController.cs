@@ -82,6 +82,7 @@ namespace Szakdoli.Controllers
                     Keszlet temp = new Keszlet { RaktarId = item.RaktarId, TermekTipusId = id, Mennyiseg = 0 };
                     _context.Add(temp);
                 }
+                //Log bejegyzes = new Log { Datum=DateTime.Now, Letrehozo=}
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

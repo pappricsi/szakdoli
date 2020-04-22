@@ -124,6 +124,7 @@ namespace Szakdoli.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
         {
+            Alkalmazott felh = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
             if (id != termek.TermekID)
             {
                 return NotFound();
@@ -139,8 +140,10 @@ namespace Szakdoli.Controllers
 
                     uj.Foglalt = true;
                     regi.Foglalt = false;
+                    Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = felh, Leiras = ter.TermekID.ToString() + " azonosítójú termék " + regi.LokacioNev + " lokációból " + uj.LokacioNev + " lokációra áthelyezve" };
                     
                     _context.Update(termek);
+                    _context.Add(bejegyzes);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -231,7 +234,7 @@ namespace Szakdoli.Controllers
                 lokacio.Foglalt = true;
                 _context.Update(lokacio);
 
-                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva" + uj.TermekID.ToString() + "azonosítóju termék" };
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva " + uj.TermekID.ToString() + "azonosítóju termék" };
                 _context.Add(bejegyzes);
 
                 await _context.SaveChangesAsync();
