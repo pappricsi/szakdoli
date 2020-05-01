@@ -16,6 +16,7 @@ namespace Szakdoli.Models
         [DisplayName("Megnevezés")]
         public string LokacioNev { get; set; }
         [ForeignKey("Raktar")]
+        [DisplayName("Telephely")]
         public int RaktarID { get; set; }
         [DisplayName("Telephely")]
         public virtual Raktar Raktar { get; set; }

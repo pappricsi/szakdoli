@@ -60,7 +60,7 @@ namespace Szakdoli.Controllers
         [Authorize(Roles = "Admin,Raktar vezeto")]
         public IActionResult Create()
         {
-            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "RaktarId");
+            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "Nev");
             return View();
         }
 
@@ -78,7 +78,7 @@ namespace Szakdoli.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "RaktarId", lokacio.RaktarID);
+            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "RaktarId", "Nev", lokacio.RaktarID);
             return View(lokacio);
         }
 

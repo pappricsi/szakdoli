@@ -22,12 +22,14 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Raktars
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Raktarak.ToListAsync());
         }
 
         // GET: Raktars/Details/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

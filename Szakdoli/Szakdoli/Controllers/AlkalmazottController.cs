@@ -35,6 +35,7 @@ namespace Szakdoli.Controllers
             _context = context;
         }
         // GET: Alkalmazott
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Index(string search)
         {
             var users = _context.Alkalmazottak.ToList();
@@ -53,6 +54,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Alkalmazott/Details/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public ActionResult Details(int id)
         {
             return View();
@@ -84,6 +86,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Alkalmazott/Edit/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -92,6 +95,7 @@ namespace Szakdoli.Controllers
         // POST: Alkalmazott/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -107,6 +111,7 @@ namespace Szakdoli.Controllers
         }
 
         // GET: Alkalmazott/Delete/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -126,6 +131,7 @@ namespace Szakdoli.Controllers
         }
 
         // POST: Alkalmazott/Delete/5
+        [Authorize(Roles = "Admin,Raktar vezeto")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id, IFormCollection collection)

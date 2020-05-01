@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<Szakdoli.Models.Lokacio>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tárhelyek";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Tárhelyek lista</h1>
+@if (User.IsInRole("Admin") || User.IsInRole("Raktár Vezető"))
+	{
+        <p>
+            <a asp-action="Create">Új felvétele</a>
+        </p>
+	}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>

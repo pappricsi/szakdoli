@@ -28,17 +28,18 @@ namespace Szakdoli.Controllers
         // GET: /Termeks
         public async Task<IActionResult> Index(string search)
         {
-            Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
+            
             var raktarContext = _context.Termekek.Include(t => t.Lokacio).Include(t => t.Tipus);
             if (!User.IsInRole("Admin"))
             {
+                Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
                 raktarContext = raktarContext.Where(t => t.Lokacio.RaktarID == alkalmazott.RaktarID).Include(t => t.Lokacio).Include(t => t.Tipus);
             }
             
             if (!String.IsNullOrEmpty(search))
             {
-               var eredmeny = raktarContext.Where(s => s.TermekTipusId.ToString().Contains(search)
-                || s.LokacioId.ToString().Contains(search)
+               var eredmeny = raktarContext.Where(s => s.Tipus.TipusNev.Contains(search)
+                || s.Lokacio.LokacioNev.Contains(search)
                 || s.Betarazva.ToString().Contains(search)
                 || s.TermekID.ToString().Contains(search)
                );
@@ -291,5 +292,7 @@ namespace Szakdoli.Controllers
 
             return View(nameof(Kitar));
         }
+
+
     }
 }

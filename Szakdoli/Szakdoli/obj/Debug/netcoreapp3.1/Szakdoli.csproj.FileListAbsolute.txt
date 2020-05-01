@@ -437,8 +437,6 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_ManageNav.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_StatusMessage.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\_ViewImports.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Register.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\RegisterConfirmation.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ResetPassword.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_StatusMessage.cshtml.g.cs
@@ -447,10 +445,7 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Log\Create.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Log\Delete.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Log\Details.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Log\Edit.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Log\Index.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Lokacios\Create.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Lokacios\Delete.cshtml.g.cs
@@ -495,3 +490,6 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Termeks\KitarReszlet.cshtml.g.cs
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.csproj.CoreCompileInputs.cache
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.genruntimeconfig.cache
