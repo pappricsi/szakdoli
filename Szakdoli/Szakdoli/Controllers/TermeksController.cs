@@ -10,6 +10,7 @@ using Szakdoli.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace Szakdoli.Controllers
 {
@@ -25,6 +26,8 @@ namespace Szakdoli.Controllers
             userMgr = userManager;
         }
 
+        
+
         // GET: /Termeks
         public async Task<IActionResult> Index(string search)
         {
@@ -35,7 +38,7 @@ namespace Szakdoli.Controllers
                 Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User).ToString());
                 raktarContext = raktarContext.Where(t => t.Lokacio.RaktarID == alkalmazott.RaktarID).Include(t => t.Lokacio).Include(t => t.Tipus);
             }
-            
+
             if (!String.IsNullOrEmpty(search))
             {
                var eredmeny = raktarContext.Where(s => s.Tipus.TipusNev.Contains(search)
@@ -223,8 +226,8 @@ namespace Szakdoli.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(uj);
-               
-
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva " + uj.TermekID.ToString() + " azonosítóju termék" };
+                _context.Add(bejegyzes);
                 Keszlet keszlet = _context.Keszlet.First(k => k.RaktarId == alkalmazott.RaktarID && k.TermekTipusId == model.TermekTipusId);
                 int db = keszlet.Mennyiseg;
                 db++;
@@ -235,8 +238,7 @@ namespace Szakdoli.Controllers
                 lokacio.Foglalt = true;
                 _context.Update(lokacio);
 
-                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva " + uj.TermekID.ToString() + "azonosítóju termék" };
-                _context.Add(bejegyzes);
+                
 
                 await _context.SaveChangesAsync();
             }
@@ -270,9 +272,13 @@ namespace Szakdoli.Controllers
             var tip = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == termek.TermekTipusId);
             Termek kitar = _context.Termekek.Where(t => t.TermekTipusId == tip.TipusID).OrderBy(x => x.Betarazva).First();
             var lok = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == kitar.LokacioId);
-
+            Termek mutat = new Termek { Betarazva = kitar.Betarazva, Lokacio = kitar.Lokacio, Tipus = kitar.Tipus };
+            TempData["termek"] = JsonConvert.SerializeObject(mutat);
             if (ModelState.IsValid)
             {
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Kitárazva " + kitar.TermekID.ToString() + " azonosítóju termék" };
+                _context.Add(bejegyzes);
+
                 _context.Termekek.Remove(kitar);
                
                 lok.Foglalt = false;
@@ -284,13 +290,19 @@ namespace Szakdoli.Controllers
                 keszlet.Mennyiseg = db;
                 _context.Update(keszlet);
 
-                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Kitárazva" + kitar.TermekID.ToString() + "azonosítóju termék" };
-                _context.Add(bejegyzes);
+                
 
                 await _context.SaveChangesAsync();
             }
 
-            return View(nameof(Kitar));
+            return RedirectToAction("KitarDetails");
+        }
+
+        public  IActionResult KitarDetails()
+        {
+            Termek modell = JsonConvert.DeserializeObject<Termek>(TempData["termek"].ToString());
+
+            return View(modell);
         }
 
 

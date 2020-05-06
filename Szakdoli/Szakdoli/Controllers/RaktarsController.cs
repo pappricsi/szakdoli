@@ -62,11 +62,24 @@ namespace Szakdoli.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("RaktarId,Nev,Cim,TelefonSZam")] Raktar raktar)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(raktar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (_context.TermekTipusok.Any())
+            {
+               
+
+                foreach (var item in _context.TermekTipusok)
+                {
+                    var rakt = _context.Raktarak.FirstOrDefault(r => r.Nev == raktar.Nev && r.TelefonSZam==raktar.TelefonSZam);
+                    Keszlet temp = new Keszlet { Mennyiseg = 0, RaktarId = rakt.RaktarId, TermekTipusId = item.TipusID, };
+                }
+                _context.SaveChanges();
             }
             return View(raktar);
         }
@@ -149,6 +162,20 @@ namespace Szakdoli.Controllers
         [Authorize(Roles = "Admin, Raktra Vezeto")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (_context.Raktarak.Any())
+            {
+               var uj = _context.Raktarak.FirstOrDefault();
+
+                foreach (var item in _context.Alkalmazottak.Where(a => a.RaktarID==id))
+                {
+                    item.RaktarID = uj.RaktarId;
+                }
+                _context.SaveChanges();
+            }
+            else
+            {
+                return NotFound();
+            }
             var raktar = await _context.Raktarak.FindAsync(id);
             _context.Raktarak.Remove(raktar);
             await _context.SaveChangesAsync();

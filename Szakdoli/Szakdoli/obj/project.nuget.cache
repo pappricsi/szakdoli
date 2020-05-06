@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NDZKymMmn4FQpoAVn6EUPNYmnHOG5JTlRWCZNyc1Vla0cMINAZlvdmkVsLvDX3ZUZFMPoe9aGpsm4b/6IDrcqQ==",
+  "dgSpecHash": "oAVnCQIpAr0dpC4ujytGAeosqGDk18w1NafiNSC0QxN/RwNbb8kquKOActCuiT4PYlO52e/mAz5xbmTlPMuKmg==",
   "success": true,
   "projectFilePath": "C:\\Users\\pappr.DESKTOP-FUG8TPL\\Desktop\\Szakdoli\\szakdoli\\Szakdoli\\Szakdoli\\Szakdoli.csproj",
   "expectedPackageFiles": [
@@ -177,9 +177,7 @@
     "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\microsoft.netcore.app.ref\\3.1.0\\microsoft.netcore.app.ref.3.1.0.nupkg.sha512",
-    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.1.0\\microsoft.windowsdesktop.app.ref.3.1.0.nupkg.sha512"
+    "C:\\Users\\pappr.DESKTOP-FUG8TPL\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

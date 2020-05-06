@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Szakdoli.Models
@@ -22,7 +24,8 @@ namespace Szakdoli.Models
         public virtual Raktar Raktar { get; set; }
         [DisplayName("Foglalt")]
         public bool Foglalt { get; set; }
-
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Termek Termek { get; set; }
     }
 }

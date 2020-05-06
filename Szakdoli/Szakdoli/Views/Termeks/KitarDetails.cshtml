@@ -1,0 +1,35 @@
+﻿@model Szakdoli.Models.Termek
+
+@{
+    ViewData["Title"] = "Kitárolt Termék";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Kitárolt termék</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lokacio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lokacio.LokacioNev)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tipus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tipus.TipusNev)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Betarazva)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Betarazva)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Termék lista</a>
+</div>

@@ -490,6 +490,6 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\D
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Termeks\KitarReszlet.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.csproj.CoreCompileInputs.cache
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Szakdoli.genruntimeconfig.cache
+C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Debug\netcoreapp3.1\Razor\Views\Termeks\KitarDetails.cshtml.g.cs
