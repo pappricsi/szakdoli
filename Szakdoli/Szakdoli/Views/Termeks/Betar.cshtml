@@ -16,6 +16,7 @@
                 <div class="form-group">
                     <label asp-for="LokacioId" class="control-label"></label>
                     <select asp-for="LokacioId" class="form-control" asp-items="ViewBag.Lokaciok"></select>
+                    @Html.ValidationMessageFor(m=>m.Tipus)
                 </div>
                 <div class="form-group">
                     <label asp-for="TermekTipusId" class="control-label"></label>

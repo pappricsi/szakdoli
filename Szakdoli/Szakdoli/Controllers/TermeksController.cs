@@ -223,11 +223,12 @@ namespace Szakdoli.Controllers
             ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev", model.TermekTipusId);
             ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID==alkalmazott.RaktarID), "LokacioId", "LokacioNev",model.LokacioId);
             Termek uj = new Termek { LokacioId = model.LokacioId, Betarazva = DateTime.Now, TermekTipusId = model.TermekTipusId, };
+            ModelState.AddModelError("Tipus","Ha még nem tette meg vegyen fel termék típust mielőtt betárolná a terméket !");
+            var tipus = uj.Tipus;
             if (ModelState.IsValid)
             {
                 _context.Add(uj);
-                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva " + uj.TermekID.ToString() + " azonosítóju termék" };
-                _context.Add(bejegyzes);
+                
                 Keszlet keszlet = _context.Keszlet.First(k => k.RaktarId == alkalmazott.RaktarID && k.TermekTipusId == model.TermekTipusId);
                 int db = keszlet.Mennyiseg;
                 db++;
@@ -241,8 +242,23 @@ namespace Szakdoli.Controllers
                 
 
                 await _context.SaveChangesAsync();
+                var id = _context.Termekek.FirstOrDefault(t => t.Lokacio == uj.Lokacio && t.Betarazva == uj.Betarazva).TermekID;
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Betárazva " + id.ToString() + " azonosítóju termék " + uj.Lokacio.LokacioNev + " tárhelyre" };
+                _context.Add(bejegyzes);
+                await _context.SaveChangesAsync();
             }
-            return View(nameof(Betar));
+
+            Termek betar = _context.Termekek.FirstOrDefault(t => t.Lokacio == uj.Lokacio && t.Betarazva == uj.Betarazva);
+            betar.Tipus = _context.TermekTipusok.FirstOrDefault(t => t.TipusID == betar.TermekTipusId);
+            TempData["betar"] = JsonConvert.SerializeObject(betar);
+            return RedirectToAction("BetarDetails");
+        }
+
+        public IActionResult BetarDetails()
+        {
+            Termek modell = JsonConvert.DeserializeObject<Termek>(TempData["betar"].ToString());
+
+            return View(modell);
         }
 
         public IActionResult Kitar()
@@ -252,7 +268,7 @@ namespace Szakdoli.Controllers
                .Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID)
                .Select(k => k.TermekTipus)
                .ToList();
-           
+            ModelState.AddModelError("Ures", "Jelenleg nem található termék a készleten !");
             ViewData["TermekTipus"] = new SelectList(ls, "TipusID", "TipusNev");
             
             return View();
@@ -273,10 +289,11 @@ namespace Szakdoli.Controllers
             Termek kitar = _context.Termekek.Where(t => t.TermekTipusId == tip.TipusID).OrderBy(x => x.Betarazva).First();
             var lok = _context.Lokaciok.FirstOrDefault(l => l.LokacioId == kitar.LokacioId);
             Termek mutat = new Termek { Betarazva = kitar.Betarazva, Lokacio = kitar.Lokacio, Tipus = kitar.Tipus };
-            TempData["termek"] = JsonConvert.SerializeObject(mutat);
+            TempData["kitar"] = JsonConvert.SerializeObject(mutat);
             if (ModelState.IsValid)
             {
-                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, Leiras = "Kitárazva " + kitar.TermekID.ToString() + " azonosítóju termék" };
+                Log bejegyzes = new Log { Datum = DateTime.Now, Letrehozo = alkalmazott, 
+                    Leiras = "Kitárazva " + kitar.TermekID.ToString() + " azonosítóju termék " + kitar.Lokacio.LokacioNev+" tárhelyről"};
                 _context.Add(bejegyzes);
 
                 _context.Termekek.Remove(kitar);
@@ -300,7 +317,7 @@ namespace Szakdoli.Controllers
 
         public  IActionResult KitarDetails()
         {
-            Termek modell = JsonConvert.DeserializeObject<Termek>(TempData["termek"].ToString());
+            Termek modell = JsonConvert.DeserializeObject<Termek>(TempData["kitar"].ToString());
 
             return View(modell);
         }
