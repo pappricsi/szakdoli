@@ -5,10 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>Termék Betárolás</h1>
+<h1>Termék Betárolás</h1>
 
 
-    <hr />
+<hr />
+@if (ViewBag.TermekTipus.Items.Count == 0 || ViewBag.Lokaciok.Items.Count == 0)
+{
+    if (ViewBag.TermekTipus.Items.Count == 0)
+    {
+        <h2>Nincs létező terméktípus !</h2>
+        <p>Előbb vegyen fel terméktípust és csak utánna tud terméket betárolni !</p>
+    }
+    else
+    {
+        <h2>Nincs üres tárhely !</h2>
+        <p>Minden tárhely megtelt!</p>
+    }
+}
+else
+{
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Betar">
@@ -16,7 +31,6 @@
                 <div class="form-group">
                     <label asp-for="LokacioId" class="control-label"></label>
                     <select asp-for="LokacioId" class="form-control" asp-items="ViewBag.Lokaciok"></select>
-                    @Html.ValidationMessageFor(m=>m.Tipus)
                 </div>
                 <div class="form-group">
                     <label asp-for="TermekTipusId" class="control-label"></label>
@@ -32,6 +46,6 @@
     <div>
         <a asp-action="Index">Termék lista</a>
     </div>
-
+}
 
 

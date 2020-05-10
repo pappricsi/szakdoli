@@ -223,8 +223,6 @@ namespace Szakdoli.Controllers
             ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev", model.TermekTipusId);
             ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID==alkalmazott.RaktarID), "LokacioId", "LokacioNev",model.LokacioId);
             Termek uj = new Termek { LokacioId = model.LokacioId, Betarazva = DateTime.Now, TermekTipusId = model.TermekTipusId, };
-            ModelState.AddModelError("Tipus","Ha még nem tette meg vegyen fel termék típust mielőtt betárolná a terméket !");
-            var tipus = uj.Tipus;
             if (ModelState.IsValid)
             {
                 _context.Add(uj);

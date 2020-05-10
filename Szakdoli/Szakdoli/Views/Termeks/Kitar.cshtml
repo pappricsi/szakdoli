@@ -12,6 +12,14 @@
 
 <hr />
 
+@if (ViewBag.TermekTipus.Items.Count == 0)
+{
+    <h2>Nincs áru a raktárban !</h2>
+    <p>Előbb tároljon be terméket, csak utánna tud kitárolni !</p>
+}
+else
+{
+
     <div class="row">
         <div class="col-md-4">
             <form asp-action="Kitar">
@@ -34,6 +42,6 @@
         <a asp-action="Index">Termék lista</a>
     </div>
 
-
+}
 
 
