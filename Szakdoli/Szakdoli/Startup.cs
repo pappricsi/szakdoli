@@ -43,11 +43,18 @@ namespace Szakdoli
             
             if (_user == null)
             {
-                
+
                 var poweruser = new Alkalmazott
                 {
-                    UserName = "Admin",
+                    UserName = "admin@admin.hu",
                     Email = "admin@admin.hu",
+                    EmailConfirmed = true,
+                    NormalizedEmail = "ADMIN@ADMIN.HU",
+                    NormalizedUserName = "ADMIN",
+                    PhoneNumber = "01234567890",
+                    PhoneNumberConfirmed = true,
+                    TeljesNev = "Admin Felhasználó",
+                    
                 };
                 string adminPassword = "Qwe_123";
 
@@ -117,11 +124,11 @@ namespace Szakdoli
                     pattern: "{controller=Keszlet}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<RaktarContext>();
-                context.Database.Migrate();
-            }
+            //using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<RaktarContext>();
+            //    context.Database.Migrate();
+            //}
             CreateRoles(services);
         }
        
