@@ -117,6 +117,11 @@ namespace Szakdoli
                     pattern: "{controller=Keszlet}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<RaktarContext>();
+                context.Database.Migrate();
+            }
             CreateRoles(services);
         }
        

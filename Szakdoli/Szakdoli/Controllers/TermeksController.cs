@@ -210,8 +210,10 @@ namespace Szakdoli.Controllers
         public IActionResult Betar()
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev");
-            ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID == alkalmazott.RaktarID), "LokacioId", "LokacioNev");
+            IEnumerable<TermekTipus> tipusls = _context.TermekTipusok .ToList();
+            IEnumerable<Lokacio> lokls = _context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID == alkalmazott.RaktarID).ToList();
+            ViewData["TermekTipusok"] = new SelectList(tipusls, "TipusID", "TipusNev");
+            ViewData["Lokaciok"] = new SelectList(lokls, "LokacioId", "LokacioNev");
             return View();
         }
 
@@ -220,8 +222,10 @@ namespace Szakdoli.Controllers
         public async Task<IActionResult> Betar(Termek model)
         {
             Alkalmazott alkalmazott = _context.Alkalmazottak.FirstOrDefault(a => a.Id == userMgr.GetUserId(User));
-            ViewData["TermekTipusok"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusNev", model.TermekTipusId);
-            ViewData["Lokaciok"] = new SelectList(_context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID==alkalmazott.RaktarID), "LokacioId", "LokacioNev",model.LokacioId);
+            IEnumerable<TermekTipus> tipusls = _context.TermekTipusok.ToList();
+            IEnumerable<Lokacio> lokls = _context.Lokaciok.Where(l => l.Foglalt == false && l.RaktarID == alkalmazott.RaktarID).ToList();
+            ViewData["TermekTipusok"] = new SelectList(tipusls, "TipusID", "TipusNev", model.TermekTipusId);
+            ViewData["Lokaciok"] = new SelectList(lokls, "LokacioId", "LokacioNev",model.LokacioId);
             Termek uj = new Termek { LokacioId = model.LokacioId, Betarazva = DateTime.Now, TermekTipusId = model.TermekTipusId, };
             if (ModelState.IsValid)
             {
@@ -266,7 +270,6 @@ namespace Szakdoli.Controllers
                .Where(k => k.Mennyiseg != 0 && k.RaktarId == alkalmazott.RaktarID)
                .Select(k => k.TermekTipus)
                .ToList();
-            ModelState.AddModelError("Ures", "Jelenleg nem található termék a készleten !");
             ViewData["TermekTipus"] = new SelectList(ls, "TipusID", "TipusNev");
             
             return View();
