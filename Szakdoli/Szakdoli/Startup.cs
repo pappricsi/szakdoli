@@ -18,55 +18,55 @@ namespace Szakdoli
 {
     public class Startup
     {
-        private async Task CreateRoles(IServiceProvider serviceProvider)
-        {
+        //private async Task CreateRoles(IServiceProvider serviceProvider)
+        //{
             
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<Alkalmazott>>();
-            string[] roleNames = { "Admin", "Raktar vezeto", "Raktaros" };
-            IdentityResult roleResult;
+        //    var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        //    var UserManager = serviceProvider.GetRequiredService<UserManager<Alkalmazott>>();
+        //    string[] roleNames = { "Admin", "Raktar vezeto", "Raktaros" };
+        //    IdentityResult roleResult;
 
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var roleExist = await RoleManager.RoleExistsAsync(roleName);
                 
-                if (!roleExist)
-                {
+        //        if (!roleExist)
+        //        {
                     
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
+        //            roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+        //        }
+        //    }
 
             
-            var _user = await UserManager.FindByEmailAsync("admin@admin.hu");
+        //    var _user = await UserManager.FindByEmailAsync("admin@admin.hu");
 
             
-            if (_user == null)
-            {
+        //    if (_user == null)
+        //    {
 
-                var poweruser = new Alkalmazott
-                {
-                    UserName = "admin@admin.hu",
-                    Email = "admin@admin.hu",
-                    EmailConfirmed = true,
-                    NormalizedEmail = "ADMIN@ADMIN.HU",
-                    NormalizedUserName = "ADMIN",
-                    PhoneNumber = "01234567890",
-                    PhoneNumberConfirmed = true,
-                    TeljesNev = "Admin Felhasználó",
+        //        var poweruser = new Alkalmazott
+        //        {
+        //            UserName = "admin@admin.hu",
+        //            Email = "admin@admin.hu",
+        //            EmailConfirmed = true,
+        //            NormalizedEmail = "ADMIN@ADMIN.HU",
+        //            NormalizedUserName = "ADMIN",
+        //            PhoneNumber = "01234567890",
+        //            PhoneNumberConfirmed = true,
+        //            TeljesNev = "Admin Felhasználó",
                     
-                };
-                string adminPassword = "Qwe_123";
+        //        };
+        //        string adminPassword = "Qwe_123";
 
-                var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
-                if (createPowerUser.Succeeded)
-                {
+        //        var createPowerUser = await UserManager.CreateAsync(poweruser, adminPassword);
+        //        if (createPowerUser.Succeeded)
+        //        {
                     
-                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+        //            await UserManager.AddToRoleAsync(poweruser, "Admin");
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -129,7 +129,7 @@ namespace Szakdoli
             //    var context = serviceScope.ServiceProvider.GetRequiredService<RaktarContext>();
             //    context.Database.Migrate();
             //}
-            CreateRoles(services);
+            //CreateRoles(services);
         }
        
     }

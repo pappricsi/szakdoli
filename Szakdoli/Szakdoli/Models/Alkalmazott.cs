@@ -14,7 +14,7 @@ namespace Szakdoli.Models
         [DisplayName("Név")]
         public string TeljesNev { get; set; }
         [ForeignKey("telephely")]
-        public int RaktarID { get; set; }
+        public int? RaktarID { get; set; }
         [DisplayName("Telephely")]
         public  Raktar Raktar { get; set; }
     }

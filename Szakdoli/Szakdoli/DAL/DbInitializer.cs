@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,61 +11,65 @@ namespace Szakdoli.DAL
 {
     public class DbInitializer
     {
-        public static void Initialize(RaktarContext context)
+        public static void Initialize(RaktarContext context, IServiceProvider serviceProvider)
         {
-            context.Database.EnsureCreated();
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<Alkalmazott>>();
+            context.Database.Migrate();
+            if (!context.Roles.Any())
+            {
+                string[] roleNames = { "Admin", "Raktar vezeto", "Raktaros" };
+                IdentityResult roleResult;
 
-            // Look for any students.
+                foreach (var roleName in roleNames)
+                {
+                    var roleExist =  RoleManager.RoleExistsAsync(roleName);
+
+                    if (!roleExist.Result)
+                    {
+
+                        roleResult = RoleManager.CreateAsync(new IdentityRole(roleName)).Result;
+                    }
+                }
+            }
+
             if (context.Alkalmazottak.Any())
             {
-                return;   // DB has been seeded
+                return;   // DB már fel van töltve
+            }
+            else
+            {
+                var _user = UserManager.FindByEmailAsync("admin@admin.hu");
+
+
+                if (_user == null)
+                {
+
+                    var poweruser = new Alkalmazott
+                    {
+                        UserName = "admin@admin.hu",
+                        Email = "admin@admin.hu",
+                        EmailConfirmed = true,
+                        PhoneNumber = "01234567890",
+                        PhoneNumberConfirmed = true,
+                        TeljesNev = "Admin Felhasználó",
+
+                    };
+                    string adminPassword = "Qwe_123";
+
+                    var createPowerUser = UserManager.CreateAsync(poweruser, adminPassword);
+                    if (createPowerUser.Result.Succeeded)
+                    {
+
+                        UserManager.AddToRoleAsync(poweruser, "Admin");
+
+                    }
+                }
+
+
             }
 
 
-
-
-
-            //var raktarak = new Raktar[]
-            //{
-            //new Raktar{Cim="ProbaCim1", Nev="Egyes Raktar", TelefonSZam="012345678901"},
-            //new Raktar{Cim="ProbaCim2", Nev="Kettes Raktar", TelefonSZam="012345678901"},
-            //new Raktar{Cim="ProbaCim3", Nev="Harmas Raktar", TelefonSZam="012345678901"},
-            //};
-            //foreach (Raktar ra in raktarak)
-            //{
-            //    context.Raktarak.Add(ra);
-            //}
-            //context.SaveChanges();
-
-
-            // var alkalmazottak = new Alkalmazott[]
-            //{
-            // new Alkalmazott{TeljesNev="Proba Pista",},
-            // new Alkalmazott{TeljesNev="Proba Jani",},
-            // new Alkalmazott{TeljesNev="Proba Béla",},
-            //};
-            // foreach (Alkalmazott a in alkalmazottak)
-            // {
-            //     context.Alkalmazottak.Add(a);
-            // }
-            // context.SaveChanges();
-
-
-            //    var lokaciok = new Lokacio[]
-            //   {
-            //    new Lokacio{LokacioNev="egyes", },
-            //    new Lokacio{LokacioNev="kettes",},
-            //    new Lokacio{LokacioNev="harmas",},
-            //    new Lokacio{LokacioNev="negyes",},
-            //    new Lokacio{LokacioNev="otos",},
-            //    new Lokacio{LokacioNev="hatos",},
-            //    new Lokacio{LokacioNev="hetes",},
-            //   };
-            //    foreach (Lokacio lo in lokaciok)
-            //    {
-            //        context.Lokaciok.Add(lo);
-            //    }
-            //    context.SaveChanges();
         }
     }
 }

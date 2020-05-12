@@ -23,7 +23,7 @@ namespace Szakdoli
                 try
                 {
                     var context = services.GetRequiredService<RaktarContext>();
-                    DbInitializer.Initialize(context);
+                    DbInitializer.Initialize(context,services);
                 }
                 catch (Exception ex)
                 {
