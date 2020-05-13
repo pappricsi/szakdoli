@@ -152,8 +152,8 @@ namespace Szakdoli.Controllers
         [Authorize(Roles = "Admin,Raktar vezeto")]
         public IActionResult CreateUser()
         {
-            
-            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "Nev", "Nev");
+            IEnumerable<Raktar> raktarls = _context.Raktarak.ToList();
+            ViewData["RaktarID"] = new SelectList(raktarls, "Nev", "Nev");
             ViewData["Role"] = new SelectList(_context.Roles, "Name", "Name");
             return View();
         }
@@ -162,8 +162,8 @@ namespace Szakdoli.Controllers
         [Authorize(Roles = "Admin,Raktar vezeto")]
         public async Task<IActionResult> CreateUser(InputModel input)
         {
-           
-            ViewData["RaktarID"] = new SelectList(_context.Raktarak, "Nev", "Nev", input.Raktar);
+            IEnumerable<Raktar> raktarls = _context.Raktarak.ToList();
+            ViewData["RaktarID"] = new SelectList(raktarls, "Nev", "Nev", input.Raktar);
             ViewData["Role"] = new SelectList(_context.Roles, "Name", "Name",input.Role);
             if (ModelState.IsValid)
             {

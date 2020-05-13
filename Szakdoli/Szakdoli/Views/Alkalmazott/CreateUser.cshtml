@@ -6,8 +6,14 @@
 }
 
 <h1>Új alkalmazott</h1>
-
-<h4>Töltse ki az adatokat</h4>
+@if (ViewBag.RaktarID.Items.Count == 0)
+{
+    <h2>Nincs áru a raktárban !</h2>
+    <p>Előbb tároljon be terméket, csak utánna tud kitárolni !</p>
+}
+else
+{
+    <h4>Töltse ki az adatokat</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -49,6 +55,7 @@
         </form>
     </div>
 </div>
+}
 
 <div>
     <a asp-action="Index">Visza a lista nézethez</a>

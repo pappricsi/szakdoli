@@ -23,7 +23,7 @@ namespace Szakdoli.DAL
 
                 foreach (var roleName in roleNames)
                 {
-                    var roleExist =  RoleManager.RoleExistsAsync(roleName);
+                    var roleExist = RoleManager.RoleExistsAsync(roleName);
 
                     if (!roleExist.Result)
                     {
@@ -39,32 +39,33 @@ namespace Szakdoli.DAL
             }
             else
             {
-                var _user = UserManager.FindByEmailAsync("admin@admin.hu");
 
 
-                if (_user == null)
+                var poweruser = new Alkalmazott
+                {
+                    UserName = "admin@admin.hu",
+                    Email = "admin@admin.hu",
+                    EmailConfirmed = true,
+                    PhoneNumber = "01234567890",
+                    PhoneNumberConfirmed = true,
+                    TeljesNev = "Admin Felhasználó",
+
+                };
+                string adminPassword = "Qwe_123";
+
+                var createPowerUser = UserManager.CreateAsync(poweruser, adminPassword);
+                if (createPowerUser.Result.Succeeded)
                 {
 
-                    var poweruser = new Alkalmazott
+                    IdentityResult result = UserManager.AddToRoleAsync(poweruser, "Admin").Result;
+
+                    if (!result.Succeeded)
                     {
-                        UserName = "admin@admin.hu",
-                        Email = "admin@admin.hu",
-                        EmailConfirmed = true,
-                        PhoneNumber = "01234567890",
-                        PhoneNumberConfirmed = true,
-                        TeljesNev = "Admin Felhasználó",
-
-                    };
-                    string adminPassword = "Qwe_123";
-
-                    var createPowerUser = UserManager.CreateAsync(poweruser, adminPassword);
-                    if (createPowerUser.Result.Succeeded)
-                    {
-
-                        UserManager.AddToRoleAsync(poweruser, "Admin");
-
+                        throw new Exception("Sikertelen db inicializálás !");
                     }
+
                 }
+
 
 
             }
