@@ -40,7 +40,6 @@ namespace Szakdoli.DAL
             else
             {
 
-
                 var poweruser = new Alkalmazott
                 {
                     UserName = "admin@admin.hu",
@@ -65,9 +64,6 @@ namespace Szakdoli.DAL
                     }
 
                 }
-
-
-
             }
 
 

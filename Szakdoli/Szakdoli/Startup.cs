@@ -42,6 +42,7 @@ namespace Szakdoli
             .AddEntityFrameworkStores<RaktarContext>();
             
             
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +65,8 @@ namespace Szakdoli
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
 
             app.UseHsts();
 
