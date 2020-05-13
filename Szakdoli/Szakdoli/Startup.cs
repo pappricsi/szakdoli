@@ -40,6 +40,13 @@ namespace Szakdoli
             services.AddDefaultIdentity<Alkalmazott>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<RaktarContext>();
+
+            services.Configure<IdentityOptions>(options=>
+            {
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+            
+            });
             
             
             
