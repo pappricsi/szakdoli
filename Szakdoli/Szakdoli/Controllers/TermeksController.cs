@@ -73,33 +73,7 @@ namespace Szakdoli.Controllers
             return View(termek);
         }
 
-        // GET: Termeks/Create
-        [Authorize(Roles = "Admin,Raktar vezeto")]
-        public IActionResult Create()
-        {
-            ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId");
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID");
-            return View();
-        }
-
-        // POST: Termeks/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Raktar vezeto")]
-        public async Task<IActionResult> Create([Bind("TermekID,LokacioId,TermekTipusId,Betarazva")] Termek termek)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(termek);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["LokacioId"] = new SelectList(_context.Lokaciok, "LokacioId", "LokacioId", termek.LokacioId);
-            ViewData["TermekTipusId"] = new SelectList(_context.TermekTipusok, "TipusID", "TipusID", termek.TermekTipusId);
-            return View(termek);
-        }
+       
 
         // GET: Termeks/Edit/5
         

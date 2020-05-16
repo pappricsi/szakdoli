@@ -533,7 +533,6 @@ C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\R
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\Betar.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\BetarDetails.cshtml.g.cs
-C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\Create.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\Delete.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\Details.cshtml.g.cs
 C:\Users\pappr.DESKTOP-FUG8TPL\Desktop\Szakdoli\szakdoli\Szakdoli\Szakdoli\obj\Release\netcoreapp3.1\win-x64\Razor\Views\Termeks\Edit.cshtml.g.cs

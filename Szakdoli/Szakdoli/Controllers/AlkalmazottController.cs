@@ -60,30 +60,7 @@ namespace Szakdoli.Controllers
             return View();
         }
 
-        // GET: Alkalmazott/Create
-        [Authorize(Roles = "Admin,Raktar vezeto")]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Alkalmazott/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Raktar vezeto")]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
 
         // GET: Alkalmazott/Edit/5
         [Authorize(Roles = "Admin,Raktar vezeto")]
@@ -180,28 +157,6 @@ namespace Szakdoli.Controllers
             return View("Index");
         }
 
-        [Authorize(Roles = "Admin,Raktar Vezeto")]
-        public IActionResult CreateRole()
-        {
-            return View();
-        }
-
-
-
-
-        [HttpPost]
-        [Authorize(Roles = "Admin,Raktar Vezeto")]
-        public async Task<IActionResult> CreateRole([Required]string name)
-        {
-            if (ModelState.IsValid)
-            {
-                IdentityResult result = await roleMgr.CreateAsync(new IdentityRole(name));
-                if (result.Succeeded)
-                    return RedirectToAction("Index");
-                else
-                    return View();
-            }
-            return View(name);
-        }
+      
     }
 }

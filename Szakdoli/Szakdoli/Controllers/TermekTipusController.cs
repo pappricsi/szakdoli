@@ -169,12 +169,12 @@ namespace Szakdoli.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var termekTipus = await _context.TermekTipusok.FindAsync(id);
-            _context.TermekTipusok.Remove(termekTipus);
             var keszlet = _context.Keszlet.Where(c => c.TermekTipusId == id);
             foreach (var item in keszlet)
             {
                 _context.Remove(item);
             }
+            _context.TermekTipusok.Remove(termekTipus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

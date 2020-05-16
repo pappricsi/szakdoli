@@ -1,13 +1,13 @@
 ﻿@model Szakdoli.Models.Lokacio
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Törlés";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Tárhely törlése</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Biztos törölni akarja ?</h3>
 <div>
     <h4>Lokacio</h4>
     <hr />
@@ -34,7 +34,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="LokacioId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Törlés" class="btn btn-danger" /> |
+        <a asp-action="Index">Vissza a lista nézethez</a>
     </form>
 </div>

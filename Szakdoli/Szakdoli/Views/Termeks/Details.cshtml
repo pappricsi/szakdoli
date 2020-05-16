@@ -1,14 +1,13 @@
 ﻿@model Szakdoli.Models.Termek
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Részletek";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Termék részleztei</h1>
 
 <div>
-    <h4>Termek</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -32,6 +31,5 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TermekID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Termék lista</a>
 </div>
